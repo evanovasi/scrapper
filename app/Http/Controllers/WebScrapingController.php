@@ -107,8 +107,11 @@ class WebScrapingController extends Controller
                         return $node->text();
                     });
                 } else {
-                    $date = 'url situs ini belum ditambahkan!';
-                    $content = 'url situs ini belum ditambahkan!';
+                    $results = [
+                        'status' => false,
+                        'error' => 'Scrap data from this site is not yet available!', // Simpan pesan error jika terjadi
+                    ];
+                    continue;
                 }
                 //  save
                 $scraping = new Scraping();
