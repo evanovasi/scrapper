@@ -8,8 +8,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><a href="{{ route('web-scrap.index') }}" class="btn btn-default">Back</a>
+                            <div class="card-tools">
+                            
+                            <h3 class="card-title"><a href="{{ route('web-scrap.index') }}" class="btn btn-success">Back</a>
                             </h3>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">

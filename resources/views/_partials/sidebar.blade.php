@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('web-scrap.index') }}" class="brand-link elevation-4">
-        <span class="brand-text font-weight-light">Scraper</span>
+        <span class="brand-text font-weight-light">Scraper Dashboard</span>
     </a>
 
     <!-- Sidebar -->
