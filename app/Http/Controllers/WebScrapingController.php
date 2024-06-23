@@ -44,9 +44,9 @@ class WebScrapingController extends Controller
     public function toJSON(?int $id = null)
     {
         if (!empty($id)) {
-            $scraping = Scraping::findOrFail($id)->makeHidden(['type']);
+            $scraping = Scraping::findOrFail($id);
         } else {
-            $scraping = Scraping::all()->makeHidden(['type']);
+            $scraping = Scraping::all();
         }
         $json = $scraping->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         $filePath = 'exports/datascraping.json';

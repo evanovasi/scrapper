@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Scraping extends Model
 {
     use HasFactory;
+    protected $hidden = ['type', 'created_at', 'updated_at'];
 }
