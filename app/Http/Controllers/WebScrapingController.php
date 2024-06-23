@@ -169,6 +169,6 @@ class WebScrapingController extends Controller
     {
         $scraping = Scraping::findOrFail($id);
         $scraping->delete();
-        return to_route('web-scrap.index')->with('msg', 'Deleted');
+        return to_route('web-scrap.index')->with(['status' => 'success', 'msg' => "Deleted"]);
     }
 }
