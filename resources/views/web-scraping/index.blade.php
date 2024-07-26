@@ -3,6 +3,8 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
+            
             <div class="row">
                 <div class="col-12">
                     @if (session())
@@ -20,7 +22,7 @@
                     <!-- Default box -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Input URLs</h3>
+                            <h3 class="card-title"><i class="si-alert__icon--info fa fa-info-circle"></i>  Input URLs : limit to Kompas.com, detik.com, liputan6.com, antaranews.com </h3>
                         </div>
                         <form method="POST" action="{{ route('web-scrap.store') }}">
                             @csrf
