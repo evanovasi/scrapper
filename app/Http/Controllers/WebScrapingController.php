@@ -8,6 +8,7 @@ use App\Models\Scraping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\DomCrawler\Crawler;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class WebScrapingController extends Controller
 {
@@ -160,10 +161,55 @@ class WebScrapingController extends Controller
     }
     public function show(string $id)
     {
+        $sentimen = Storage::json('public/sentimen/sentimen.json');
+        // Filter data berdasarkan id
+        $filteredData = array_filter($sentimen, function ($item) use ($id) {
+            return $item['Event Info']['id'] == $id;
+        });
+        // Konversi hasil filter ke array
+        $filteredData = array_values($filteredData);
+        // dd($filteredData);
+        // // Tentukan jumlah item per halaman
+        // $perPage = 10;
+        // // Ambil halaman saat ini dari request
+        // $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // // Slice data untuk halaman saat ini
+        // $currentItems = array_slice($filteredData, ($currentPage - 1) * $perPage, $perPage);
+        // // Buat paginator
+        // $paginator = new LengthAwarePaginator($currentItems, count($filteredData), $perPage, $currentPage, [
+        //     'path' => LengthAwarePaginator::resolveCurrentPath(),
+        //     'pageName' => 'page',
+        // ]);
         return view('web-scraping.show', [
             'title' => 'Detail',
-            'datascraping' => Scraping::findOrFail($id)
+            'datascraping' => Scraping::findOrFail($id),
+            'sentiments' => $filteredData
         ]);
+    }
+
+    public function sentiment(Request $request)
+    {
+        // Validasi request
+        $request->validate([
+            'sentimen' => 'required|file|mimes:json',
+        ]);
+
+        try {
+            // Cek dan hapus direktori jika sudah ada
+            if (Storage::exists('public/sentimen')) {
+                Storage::deleteDirectory('public/sentimen');
+            }
+
+            // Buat ulang direktori
+            Storage::makeDirectory('public/sentimen');
+
+            // Simpan file
+            $file = $request->file('sentimen');
+            $file->storeAs('public/sentimen', 'sentimen.json');
+            return to_route('web-scrap.index')->with(['status' => 'success', 'msg' => "Uploaded"]);
+        } catch (\Exception $e) {
+            return back()->with(['status' => 'error', 'msg' => "Upload failed: " . $e->getMessage()]);
+        }
     }
     /**
      * Remove the specified resource from storage.

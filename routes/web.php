@@ -14,6 +14,7 @@ Route::controller(WebScrapingController::class)->group(function () {
     Route::get('/web-scrap/show/{id}',  'show')->name('web-scrap.show');
     Route::delete('/web-scrap/{id}',  'destroy')->name('web-scrap.destroy');
     Route::get('/web-scrap/json/{id?}',  'toJSON')->name('web-scrap.json');
+    Route::post('/web-scrap/sentiment',  'sentiment')->name('web-scrap.sentiment');
 });
 // Route::controller(SocialMediaScrapingController::class)->group(function () {
 Route::get('/socmed-scrap', function () {
